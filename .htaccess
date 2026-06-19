@@ -1,0 +1,28 @@
+# =============================================================================
+# .htaccess — Configuração do Apache (XAMPP)
+# =============================================================================
+# Este arquivo configura o servidor web Apache para:
+#   1. Proteger arquivos sensíveis (config, models, controllers)
+#   2. Redirecionar URLs amigáveis (opcional para o futuro)
+#
+# O .htaccess só funciona no Apache (usado pelo XAMPP).
+# Em outros servidores (Nginx, IIS), a configuração é diferente.
+#
+# CONCEITO — mod_rewrite:
+# Módulo do Apache que permite "reescrever" URLs.
+# Precisa estar habilitado no XAMPP (geralmente já vem habilitado).
+# =============================================================================
+
+# Ativa o motor de reescrita de URLs
+RewriteEngine On
+
+# Impede acesso direto a diretórios protegidos
+# Se alguém tentar acessar http://localhost/php-crud-simples-exemplo/config/database.php
+# diretamente, será BLOQUEADO. Só o PHP (via require/include) pode acessar.
+RewriteRule ^config/ - [F,L]
+RewriteRule ^models/ - [F,L]
+RewriteRule ^controllers/ - [F,L]
+RewriteRule ^views/ - [F,L]
+
+# [F] = Forbidden (retorna erro 403)
+# [L] = Last (para de processar regras)
